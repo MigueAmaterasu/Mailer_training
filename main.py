@@ -1,11 +1,15 @@
-from app.director import go
+from app.director import GoProcess
 
+print("Inicio de procesos de esta pagina")
 
+print("Reading CSV file")
+GoProcess().getDataCv()
+print("Read CSV file ")
 
-#Inicio de ejecución de Hilo de procesos 
+print("Reading Database")
+GoProcess().getDataDb()
+print("Read Database")
 
-print("Inicio de procesos para generacion de reportes")
-
-#Archivo y clase del director de la app
-
-go().primera()
+print("Finding Differences")
+GoProcess().getDataFailet()
+print("Differences found")
