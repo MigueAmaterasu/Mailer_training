@@ -1,11 +1,7 @@
-
-
-
-
-class saludos:
-    
+import pandas as pd
+class suma:
     def __init__(self):
         pass
 
-    def saludo(self):
-        print("Esto es un pequeño ejemplo de funcion de una app,\n con la intención de no revolvernos never and ever")
+    def sumatoria(self, dato1):
+        print(dato1.tail(20))

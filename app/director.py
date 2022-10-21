@@ -1,13 +1,22 @@
-from resources.data_csv import data_csv
-from app.mailer import saludos
+from resources.data_cv import Data_Cv
+from resources.data_bd import Data_Bd
+from app.mailer import suma
+from app.mergedf import VerifyData
+
+import pandas as pd
 
 
+class GoProcess:
+    def __init__(self):
 
+        pass
 
-class go:
+    def getDataCv(self):
+        Data_Cv().getInfoCsv()
 
-    #Orden de ejecuciones
+    def getDataDb(self):
+        Data_Bd().get_InfoDb()
 
-    def primera( self ):
+    def getDataFailet(self):
 
-        saludos().saludo()
+        VerifyData().findData(Data_Cv().getInfoCsv(),Data_Bd().get_InfoDb())
