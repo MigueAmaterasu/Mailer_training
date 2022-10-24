@@ -2,7 +2,7 @@ from ast import Lambda
 from csv import writer
 from datetime import datetime
 import pandas as pd
-import xlsxwriter
+from pandas import ExcelWriter
 
 
 class VerifyData:
@@ -16,12 +16,9 @@ class VerifyData:
         df3.loc[lambda x: x['_merge'] == 'both']
         result_data = df3[(df3['_merge'] != 'both')].drop('_merge', axis=1)
 
+        
         result = pd.DataFrame(result_data)
         result.to_csv('reporte_incidencias.csv')
-
-        # ----------------------------------------------------------------------------------
-
-        # cree un escritor de Pandas Excel usando XlsxWriter como el escritor del motor
 
         ejecucion = datetime.now()
         ejecucion_f = ejecucion.strftime('%d/%m/%Y %H:%M:%S')
@@ -30,18 +27,18 @@ class VerifyData:
         number = f' Se encontraron el numero {len(result)} de datos incongruentes'
         second = f'fecha: {ejecucion_f}'
 
-        # page 2 to excel
-        data = result.tail(4)
+        if (len(result) == 0):
+            page1 = pd.DataFrame({"Numero de registros": (number, second)})
+            page2 = pd.DataFrame({"Informacion de datos": (
+                "No se encontraron datos diferentes", "En los dos dataframes")},index=False)
 
-        df1 = pd.DataFrame({'dataset': [number, second]})
-        df2 = pd.DataFrame(data)
+            with ExcelWriter('prueba.xlsx') as writer:
+                page1.to_excel(writer, 'PAGE 1', index=False)
+                page2.to_excel(writer, 'PAGE 2', index=False)
+        else:
+            page1 = pd.DataFrame({"Numero de registros": (number, second)})
+            page2 = pd.DataFrame(result.tail(4))
 
-        # cree un escritor de Pandas Excel usando XlsxWriter como el escritor del motor
-        libro = pd. ExcelWriter(' dataframes.xlsx ', motor=' xlsxwriter ')
-
-        # escribe cada DataFrame en una hoja específica
-        df1. to_excel(libro, sheet_name=' primer conjunto de datos ')
-        #df2. to_excel(libro, sheet_name=' segundo conjunto de datos ')
-
-        # cierre el escritor de Pandas Excel y genere el archivo de Excel
-        libro.save()
+            with ExcelWriter('prueba.xlsx') as writer:
+                page1.to_excel(writer, 'PAGE 1', index=False)
+                page2.to_excel(writer, 'PAGE 2', index=False)
