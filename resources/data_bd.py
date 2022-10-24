@@ -3,7 +3,6 @@ import pandas as pd
 
 # It connects to a database, creates a cursor, and then executes a query.
 
-
 class Data_Bd:
 
     def __init__(self):
@@ -23,7 +22,7 @@ class Data_Bd:
             SELECT
                    *
             FROM
-                data_amazon
+                datos
             """
         result_dataFrame = pd.read_sql(query, self.mydb)
         return result_dataFrame

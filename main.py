@@ -10,6 +10,7 @@ print("Reading Database")
 GoProcess().getDataDb()
 print("Read Database")
 
+
 print("Finding Differences")
 GoProcess().getDataFailet()
 print("Differences found")
