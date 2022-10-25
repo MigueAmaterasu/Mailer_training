@@ -3,11 +3,11 @@ from app.director import GoProcess
 print("Inicio de procesos de esta pagina")
 
 print("Reading CSV file")
-GoProcess().getDataCv()
+# GoProcess().getDataCv()
 print("Read CSV file ")
 
 print("Reading Database")
-GoProcess().getDataDb()
+# GoProcess().getDataDb()
 print("Read Database")
 
 

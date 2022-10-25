@@ -43,8 +43,8 @@ class VerifyData:
             result.to_csv('reporte_incidencias.csv')
 
             page1 = pd.DataFrame({"Numero de registros": (number, second)})
-            page2 = pd.DataFrame(result.tail(5))
+            page2 = pd.DataFrame(result.tail(2000))
 
-            with ExcelWriter('prueba.xlsx') as writer:
+            with ExcelWriter('reporte_incidencias.xlsx') as writer:
                 page1.to_excel(writer, 'PAGE 1', index=False)
                 page2.to_excel(writer, 'PAGE 2', index=False)
