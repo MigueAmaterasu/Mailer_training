@@ -44,6 +44,6 @@ class Email:
         server.starttls()
         server.login("luiscabanas919@gmail.com", "sgsyjifzrxjiipim")
         texto = msg.as_string()
-        server.sendmail("luiscabanas919@gmail.com", "luiscabanas919@gmail.com", texto)
+        server.sendmail("luiscabanas919@gmail.com", "miguel.shinouda.lp@gmail.com", texto)
         server.quit()
 
