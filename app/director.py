@@ -1,7 +1,7 @@
 from resources.data_cv import Data_Cv
 from resources.data_bd import Data_Bd
-from app.mailer import suma
 from app.mergedf import VerifyData
+from app.mailer import Email
 
 import pandas as pd
 
@@ -18,5 +18,7 @@ class GoProcess:
         Data_Bd().get_InfoDb()
 
     def getDataFailet(self):
-
-        VerifyData().findData(Data_Cv().getInfoCsv(),Data_Bd().get_InfoDb())
+        VerifyData().findData(Data_Cv().getInfoCsv(), Data_Bd().get_InfoDb())
+        
+    def getEmail(self):
+        Email().sendEmail()

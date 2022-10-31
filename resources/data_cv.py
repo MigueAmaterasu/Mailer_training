@@ -7,5 +7,5 @@ class Data_Cv:
         pass
 
     def getInfoCsv(self):
-        datos = pd.read_csv(r'resources\datos.csv')
+        datos = pd.read_csv(r'resources\amazon.csv')
         return datos

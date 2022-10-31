@@ -1,8 +1,9 @@
 from ast import Lambda
 from csv import writer
-from datetime import datetime
+from datetime import date, datetime
 import pandas as pd
 from pandas import ExcelWriter
+from psycopg2 import Date
 
 
 class VerifyData:
@@ -16,35 +17,32 @@ class VerifyData:
         df3.loc[lambda x: x['_merge'] == 'both']
         result_data = df3[(df3['_merge'] != 'both')].drop('_merge', axis=1)
 
-        result = pd.DataFrame(result_data)
-
         ejecucion = datetime.now()
         ejecucion_f = ejecucion.strftime('%d/%m/%Y %H:%M:%S')
+        today = ejecucion.strftime('%Y%m%d')
 
-        # page 1 to excel
-        number = f' Se encontraron el numero {len(result)} de datos incongruentes'
-        number2 = f' Se encontraron el numero 0 de datos incongruentes'
-        second = f'fecha: {ejecucion_f}'
+        if (len(result_data) == 0):
+    
+            TOTAL = pd.DataFrame({"Informacion de datos": 
+                ("No se encontraron datos diferentes", "En los dos dataframes")})
+            TOTAL.to_csv(f'report/csv/{today}.csv')
 
-        if (len(result) == 0):
-            TOTAL = pd.DataFrame({"Informacion de datos": (
-                "No se encontraron datos diferentes", "En los dos dataframes")})
-            TOTAL.to_csv('reporte_incidencias.csv')
-
-            page1 = pd.DataFrame({"Numero de registros": (number2, second)})
-            page2 = pd.DataFrame({"Informacion de datos": (
-                "No se encontraron datos diferentes", "En los dos dataframes")})
-
-            with ExcelWriter('prueba.xlsx') as writer:
+            page1 = pd.DataFrame({"Numero de registros":
+                (f' Se encontraron el numero 0 de datos incongruentes', 
+                f' Se encontraron el numero {len(result_data)} de datos incongruentes')})
+            page2 = pd.DataFrame({"Informacion de datos": 
+                ("No se encontraron datos diferentes", "En los dos dataframes")})
+            
+            with ExcelWriter(f'report/excel/{today}.xlsx') as writer:
                 page1.to_excel(writer, 'PAGE 1', index=False)
                 page2.to_excel(writer, 'PAGE 2', index=False)
+                
         else:
+            result_data.to_csv(f'report/csv/{today}.csv')
+            page1 = pd.DataFrame({"Numero de registros": (
+                f' Se encontraron el numero {len(result_data)} de datos incongruentes', f'fecha: {ejecucion_f}')})
+            page2 = pd.DataFrame(result_data.tail(2000))
 
-            result.to_csv('reporte_incidencias.csv')
-
-            page1 = pd.DataFrame({"Numero de registros": (number, second)})
-            page2 = pd.DataFrame(result.tail(5))
-
-            with ExcelWriter('prueba.xlsx') as writer:
+            with ExcelWriter(f'report/excel/{today}.xlsx') as writer:
                 page1.to_excel(writer, 'PAGE 1', index=False)
                 page2.to_excel(writer, 'PAGE 2', index=False)
