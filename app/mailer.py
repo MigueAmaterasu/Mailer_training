@@ -15,7 +15,7 @@ class Email:
         msg = MIMEMultipart()
         msg['Subject'] = "REPORTE DE INCIDENCIAS GRUPO TI MEXICO"
         body = """
-                    Buen dia, se adjunta reporte de discrepancias del documento proveniente del equipo de ventas y los datos\nfaltantes\nGracias\nIng.luis carlos cabañas cruz
+                    Buen dia, se adjunta reporte de discrepancias del documento proveniente del equipo de ventas y los datos\nfaltantes\nGracias\nIng.Christian Alexis Vazquez Gonzalez
                 """
         msg.attach(MIMEText(body, 'plain'))
 
@@ -26,13 +26,11 @@ class Email:
             f'report\excel\{today}.xlsx')]
         file_data = [f'report\csv\{today}.csv', f'report\excel\{today}.xlsx']
 
-
         for file in range(len(files_verify)):
             for document in range(len(file_data)):
                 if file == True:
                     nombre_archivo = file_data[document]
                     part = file_data[document].split(sep='\\')
-                
                     adjunto = open(nombre_archivo, "rb")
                     parte = MIMEBase('application', 'octet-stream')
                     parte.set_payload((adjunto).read())
@@ -42,8 +40,11 @@ class Email:
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("luiscabanas919@gmail.com", "sgsyjifzrxjiipim")
+        server.login("cvchrisales@gmail.com", "ypstmtrwfcoxmsvg")
         texto = msg.as_string()
-        server.sendmail("luiscabanas919@gmail.com", "miguel.shinouda.lp@gmail.com", texto)
+        server.sendmail("cvchrisales@gmail.com", "miguel.shinouda.lp@gmail.com", texto)
         server.quit()
+
+
+
 

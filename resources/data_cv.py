@@ -1,5 +1,6 @@
 import pandas as pd
-
+import os
+import sys
 
 class Data_Cv:
 
@@ -7,5 +8,10 @@ class Data_Cv:
         pass
 
     def getInfoCsv(self):
-        datos = pd.read_csv(r'resources\amazon.csv')
-        return datos
+
+        if os.path.isfile('download_files\Bakery.csv') == True:
+            datos = pd.read_csv(r'download_files\Bakery.csv')
+            return datos
+        else:
+            print("NOT FOUND")
+            sys.exit()  

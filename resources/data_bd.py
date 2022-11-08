@@ -15,7 +15,7 @@ class Data_Bd:
             host="localhost",
             database='practica',
             user="root",
-            passwd="12345",
+            passwd="1234567",
             use_pure=True)
 
     def get_InfoDb(self):
@@ -26,7 +26,7 @@ class Data_Bd:
             SELECT
                    *
             FROM
-                amazon
+                backery
             """
             result_dataFrame = pd.read_sql(query, self.mydb)
             return result_dataFrame
